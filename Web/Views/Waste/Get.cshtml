@@ -1,0 +1,158 @@
+﻿@{
+    Layout = null;
+    var mdl = ViewBag.DropdownList.Data;
+}
+@using Core.Model
+@using Core.Enums
+@model WasteUpdateDto
+
+
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content rounded">
+        <div class="modal-header">
+            <h5 class="modal-title">Kayıt  @(Model.Id == 0 ? "Ekle":"Düzenle")</h5>
+        </div>
+        <br />
+        <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+            <form action="@Url.Action("AddOrEdit","Waste")" class="form w-100 fv-plugins-bootstrap5 fv-plugins-framework" id="waste_form" method="post">
+                @Html.HiddenFor(s => s.Id)
+                @Html.HiddenFor(s => s.IsActive)
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Ay</label>
+                        <select class="form-control" name="Month" required>
+                            @foreach (var type in (Month[])Enum.GetValues(typeof(Month)))
+                            {
+                                int val = (int)type;
+
+                                if (val == Model.Month)
+                                {
+                                    <option value="@val" selected>@type.ToString()</option>
+                                }
+                                else
+                                {
+                                    <option value="@val">@type.ToString()</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Mağaza</label>
+                        <select class="form-control" name="StoreId">
+                            @foreach (var str in mdl.Stores)
+                            {
+                                if (str.Value == Model.StoreId)
+                                {
+                                    <option value="@str.Value" selected>@str.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@str.Value">@str.Text</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Atık Tipi</label>
+                        <select class="form-control" name="WasteTypeId">
+                            @foreach (var typ in mdl.Types)
+                            {
+                                if (typ.Value == Model.WasteTypeId)
+                                {
+                                    <option value="@typ.Value" selected>@typ.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@typ.Value">@typ.Text</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Atık Çeşidi</label>
+                        <select class="form-control" name="WasteKindId">
+                            @foreach (var knd in mdl.Kinds)
+                            {
+                                if (knd.Value == Model.WasteKindId)
+                                {
+                                    <option selected value="@knd.Value">@knd.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@knd.Value">@knd.Text</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Miktar</label>
+                        <input type="number" id="Quantity" required name="Quantity" class="form-control" value="@Model.Quantity" />
+                    </div>
+                    <div class="col-md-6">
+                        <label>Birim</label>
+                        <select class="form-control" name="UnitId">
+                            @foreach (var unt in mdl.Units)
+                            {
+                                if (unt.Value == Model.UnitId)
+                                {
+                                    <option selected value="@unt.Value">@unt.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@unt.Value">@unt.Text</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Teslim Alan Firma</label>
+                        <select class="form-control" name="DeliveryCompanyId">
+                            @foreach (var cmp in mdl.Companies)
+                            {
+                                if (cmp.Value == Model.DeliveryCompanyId)
+                                {
+                                    <option value="@cmp.Value">@cmp.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@cmp.Value">@cmp.Text</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Birim</label>
+                        <input type="date" name="WasteDate" class="form-control" value="@Model.WasteDate.ToString("yyyy-MM-dd")" />
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>İçerik</label>
+                        <textarea class="form-control" cols="5" rows="5" name="Content">@Model.Content</textarea>
+                    </div>
+                </div>
+                <br />
+                <div class="text-center">
+                    <button type="button" data-bs-dismiss="modal" onclick="common.closeModal('wasteModal');" class="btn btn-white me-3">Kapat</button>
+                    <button type="button" class="btn btn-success" id="submit_form" onclick="Save();">
+                        <span class="indicator-label">Kaydet</span>
+                        <span class="indicator-progress">
+                            Lütfen Bekleyiniz...
+                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                        </span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div> 

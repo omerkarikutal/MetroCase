@@ -1,0 +1,57 @@
+﻿@section scripts{
+    <script src="~/js/waste.js"></script>
+}
+
+<div class="card">
+    <div class="card-header">
+        <div class="card-title">
+            <span>Filtrele</span>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            @*<div class="col-2">
+                    <label>Bitiş Tarih</label>
+                    <input type="date" class="form-control" id="endDate" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                </div>*@
+
+
+        </div>
+
+
+    </div>
+</div>
+<div class="card">
+    <div class="card-header">
+        <div class="card-title">
+            <span>Atık Listesi</span>
+        </div>
+        <div class="card-toolbar">
+            <button onclick="AddOrEdit(0);" class="btn btn-success btn-xs">
+                Ekle
+            </button>
+            <!--end::Search-->
+        </div>
+    </div>
+    <div class="card-body">
+        <table class="table" id="WasteList">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Atık Tarihi</th>
+                    <th>Ay</th>
+                    <th>Mağaza</th>
+                    <th>Atık Tipi</th>
+                    <th>Atık Çeşidi</th>
+                    <th>Adet</th>
+                    <th>Birim</th>
+                    <th>Teslim Alan Firma</th>
+                    <th></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+<div class="modal" tabindex="-1" role="dialog" id="wasteModal">
+
+</div>
